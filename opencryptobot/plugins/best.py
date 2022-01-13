@@ -16,7 +16,8 @@ class Best(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.save_data
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        args = context.args
         keywords = utl.get_kw(args)
         arg_list = utl.del_kw(args)
 

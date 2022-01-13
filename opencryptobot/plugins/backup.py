@@ -16,7 +16,8 @@ class Backup(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.only_owner
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        bot = update.message.bot
         # List of folders to exclude from backup
         exclude = [con.LOG_DIR, con.UPD_DIR, con.BCK_DIR, "__pycache__"]
 

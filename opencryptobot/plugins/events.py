@@ -13,7 +13,9 @@ class Events(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.save_data
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        args = context.args
+        bot = update.message.bot
         kw = utl.get_kw(args)
 
         limit = kw.get("limit", 5)

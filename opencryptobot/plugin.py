@@ -16,7 +16,7 @@ class PluginInterface:
         raise NotImplementedError(f"Interface method '{method}' not implemented")
 
     # Logic that gets executed if command is triggered
-    def get_action(self, bot, update, args, inline=False, notify=True, quote=True):
+    def get_action(self, update, context):
         method = inspect.currentframe().f_code.co_name
         raise NotImplementedError(f"Interface method '{method}' not implemented")
 
@@ -55,13 +55,14 @@ class OpenCryptoPlugin(PluginInterface):
 
     @classmethod
     def send_typing(cls, func):
-        def _send_typing_action(self, bot, update, **kwargs):
+        def _send_typing_action(self, update, context):
+            bot = update.message.bot
             if update.message:
                 user_id = update.message.chat_id
             elif update.callback_query:
                 user_id = update.callback_query.message.chat_id
             else:
-                return func(self, bot, update, **kwargs)
+                return func(self, update, context)
 
             try:
                 bot.send_chat_action(
@@ -70,20 +71,20 @@ class OpenCryptoPlugin(PluginInterface):
             except Exception as ex:
                 logging.error(f"{ex} - {update}")
 
-            return func(self, bot, update, **kwargs)
+            return func(self, update, context)
         return _send_typing_action
 
     @classmethod
     def only_owner(cls, func):
-        def _only_owner(self, bot, update, **kwargs):
+        def _only_owner(self, update, context):
             if update.effective_user.id in Cfg.get("admin_id"):
-                return func(self, bot, update, **kwargs)
+                return func(self, update, context)
 
         return _only_owner
 
     @classmethod
     def save_data(cls, func):
-        def _save_data(self, bot, update, **kwargs):
+        def _save_data(self, update, context):
             if Cfg.get("database", "use_db"):
                 if update.message:
                     usr = update.message.from_user
@@ -95,15 +96,15 @@ class OpenCryptoPlugin(PluginInterface):
                     cht = update.effective_chat
                 else:
                     logging.warning(f"Can't save usage - {update}")
-                    return func(self, bot, update, **kwargs)
+                    return func(self, update, context)
 
                 if usr.id in Cfg.get("admin_id"):
                     if not Cfg.get("database", "track_admins"):
-                        return func(self, bot, update, **kwargs)
+                        return func(self, update, context)
 
                 self.tgb.db.save_cmd(usr, cht, cmd)
 
-            return func(self, bot, update, **kwargs)
+            return func(self, update, context)
         return _save_data
 
     def add_plugin(self):

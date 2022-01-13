@@ -22,7 +22,9 @@ class Update(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.only_owner
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        args = context.args
+        bot = update.message.bot
         restart = False
         force = False
         check = False
