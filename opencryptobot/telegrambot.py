@@ -79,7 +79,7 @@ class TelegramBot:
 
     # Start the bot
     def bot_start_polling(self):
-        self.updater.start_polling(clean=True)
+        self.updater.start_polling(drop_pending_updates=True)
 
     # Go in idle mode
     def bot_idle(self):
@@ -96,18 +96,18 @@ class TelegramBot:
                         f"{Cfg.get('webhook', 'port')}/"
                         f"{self.token}")
 
-    def _cmd_link_callback(self, bot, update):
+    def _cmd_link_callback(self, update, context):
         cmd = update.effective_message.text.split('__')[0].replace("/_", "")
         args = update.effective_message.text.split('__')[1].split("_")
 
         for p in self.plugins:
             if cmd.lower() in p.get_cmds():
-                p.get_action(bot, update, args=args)
+                p.get_action(update, context)
                 break
 
     def _add_link_handler(self):
-        self.dispatcher.add_handler(RegexHandler(
-            utl.comp("^/_([a-zA-Z0-9]*)__([\w]*)$"), self._cmd_link_callback))
+        self.dispatcher.add_handler(MessageHandler(Filters.regex(
+            utl.comp("^/_([a-zA-Z0-9]*)__([\w]*)$")), self._cmd_link_callback))
 
     def _load_plugins(self):
         threads = list()
@@ -182,7 +182,8 @@ class TelegramBot:
         except Exception as ex:
             update.message.reply_text(f"{emo.ERROR} {ex}")
 
-    def _inline(self, bot, update):
+    def _inline(self, update, context):
+        bot = update.message.bot
         query = update.inline_query.query
         if not query or not query.startswith("/") or not query.endswith("."):
             return
@@ -220,7 +221,7 @@ class TelegramBot:
             message = "Command not found"
             return _send(f"{emo.INFO} {message}")
 
-        v = plgn.get_action(bot, update, args=args)
+        v = plgn.get_action(update, context)
 
         if not v:
             message = "No message returned"
@@ -236,7 +237,8 @@ class TelegramBot:
         _send(v, plgn.get_description())
 
     # Handle all telegram and telegram.ext related errors
-    def _handle_tg_errors(self, bot, update, error):
+    def _handle_tg_errors(self, update, context):
+        error = context.error
         cls_name = f"Class: {type(self).__name__}"
         logging.error(f"{error} - {cls_name} - {update}")
 
@@ -269,7 +271,9 @@ class TelegramBot:
                 logging.error(repr(e))
 
     def _update_check(self):
-        def _check_for_update(bot, job):
+        def _check_for_update(context):
+            job = context.job
+            bot = context.bot
             user = Cfg.get('update', 'github_user')
             repo = Cfg.get('update', 'github_repo')
             gh = GitHub(github_user=user, github_repo=repo)

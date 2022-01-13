@@ -19,4 +19,4 @@ html2text = "*"
 python-twitter = "*"
 
 [requires]
-python_version = "3.7"
+#python_version = "3.8"

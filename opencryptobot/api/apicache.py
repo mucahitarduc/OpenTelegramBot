@@ -14,7 +14,7 @@ class APICache(object):
     cmc_coin_list = list()
 
     @staticmethod
-    def refresh(bot, job):
+    def refresh(context):
         logging.info("Starting Caching")
 
         APICache.refresh_coingecko_coin_list()

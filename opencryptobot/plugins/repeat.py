@@ -25,7 +25,9 @@ class Repeat(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.save_data
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        args = context.args
+        bot = update.message.bot
         # Check if database is enabled
         if not Cfg.get("database", "use_db"):
             update.message.reply_text(

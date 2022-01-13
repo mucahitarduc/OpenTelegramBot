@@ -9,7 +9,9 @@ class Help(OpenCryptoPlugin):
 
     @OpenCryptoPlugin.save_data
     @OpenCryptoPlugin.send_typing
-    def get_action(self, bot, update, args):
+    def get_action(self, update, context):
+        args = context.args
+        bot = update.message.bot
         cat_dict = dict()
         for p in self.tgb.plugins:
             if p.get_category() and p.get_description():
