@@ -1,3 +1,6 @@
+✨ *OpenTelegramBot* ✨
+
+originated from:
 ✨ *OpenCryptoBot* ✨
 
 Welcome to the Swiss Army knife for crypto! I'm a bot and i can send you about anything crypto-related you need.

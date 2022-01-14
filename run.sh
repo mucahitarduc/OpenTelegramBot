@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python3.7 -m opencryptobot -lvl 20
+python3 -m opentelegrambot -lvl 20

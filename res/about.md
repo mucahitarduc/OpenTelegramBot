@@ -1,3 +1,7 @@
+✨ *OpenTelegramBot* ✨
+Please visit the [homepage](https://mucahitarduc.github.io/OpenTelegramBot) to get the more information. This is based on OpenCryptoBot structure, and made more generalized!
+
+originated from:
 ✨ *OpenCryptoBot* ✨
 Please visit the [homepage](https://endogen.github.io/OpenCryptoBot) to get detailed descriptions and examples for all available commands and to read up on latest news regarding this bot.  
 

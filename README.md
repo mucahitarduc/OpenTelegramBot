@@ -1,3 +1,6 @@
+# OpenTelegramBot
+This bot software structure is too good to be only served for crypto bot. So I refactored it as general bot. Very efficient bots can be written by only developing plugins.
+
 # OpenCryptoBot
 Welcome to the Swiss Army knife for crypto! *OpenCryptoBot* is an open source Telegram bot written in Python and you can [add this bot directly](https://telegram.me/OpenCryptoBot) or add him by searching for user *@OpenCryptoBot* on Telegram.
 
