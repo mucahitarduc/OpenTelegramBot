@@ -34,6 +34,7 @@ class CoinData(object):
                 CoinData.response.raise_for_status()
                 CoinData.res_json = json.loads(CoinData.response.content.decode('utf-8'))
             except Exception as e:
+                CoinData._datetime = 0
                 raise e
 
             if not CoinData.res_json:

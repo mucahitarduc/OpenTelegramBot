@@ -1,5 +1,5 @@
 import requests
-
+import json
 from bs4 import BeautifulSoup
 
 COIN_PAPRIKA_PARTIAL = "https://coinpaprika.com/coin/"
