@@ -1,14 +1,14 @@
 from telegram import ParseMode
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Help(OpenCryptoPlugin):
+class Help(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["h", "help"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

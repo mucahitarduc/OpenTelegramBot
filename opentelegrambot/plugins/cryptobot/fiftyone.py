@@ -3,16 +3,16 @@ import opentelegrambot.emoji as emo
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.crypto51 import Crypto51
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Fiftyone(OpenCryptoPlugin):
+class Fiftyone(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["51", "fiftyone"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

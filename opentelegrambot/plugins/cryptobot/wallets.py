@@ -8,10 +8,10 @@ import opentelegrambot.constants as con
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.cryptocompare import CryptoCompare
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Wallets(OpenCryptoPlugin):
+class Wallets(OpenTelegramPlugin):
 
     _CC_URL = "https://www.cryptocompare.com"
     _token = None
@@ -34,8 +34,8 @@ class Wallets(OpenCryptoPlugin):
     def get_cmds(self):
         return ["wa", "wallet"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

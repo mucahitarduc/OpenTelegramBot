@@ -4,16 +4,16 @@ import opentelegrambot.utils as utl
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.tokenstats import TokenStats
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Roi(OpenCryptoPlugin):
+class Roi(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["roi"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

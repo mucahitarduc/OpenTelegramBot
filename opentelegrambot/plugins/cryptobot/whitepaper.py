@@ -6,18 +6,18 @@ from telegram.error import BadRequest
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.apicache import APICache
 from opentelegrambot.api.cryptocompare import CryptoCompare
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Whitepaper(OpenCryptoPlugin):
+class Whitepaper(OpenTelegramPlugin):
 
     name = None
 
     def get_cmds(self):
         return ["wp", "whitepaper"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

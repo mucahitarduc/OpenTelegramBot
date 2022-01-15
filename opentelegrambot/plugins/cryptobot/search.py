@@ -3,16 +3,16 @@ import opentelegrambot.emoji as emo
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.apicache import APICache
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Search(OpenCryptoPlugin):
+class Search(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["se", "search"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

@@ -11,17 +11,17 @@ import opentelegrambot.constants as con
 
 from telegram import ParseMode
 from opentelegrambot.api.github import GitHub
-from opentelegrambot.plugin import OpenCryptoPlugin
+from opentelegrambot.plugin import OpenTelegramPlugin
 from opentelegrambot.config import ConfigManager as Cfg
 
 
-class Update(OpenCryptoPlugin):
+class Update(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["update"]
 
-    @OpenCryptoPlugin.only_owner
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.only_owner
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

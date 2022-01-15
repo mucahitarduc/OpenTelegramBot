@@ -6,16 +6,16 @@ import time
 import opentelegrambot.emoji as emo
 import opentelegrambot.constants as con
 
-from opentelegrambot.plugin import OpenCryptoPlugin
+from opentelegrambot.plugin import OpenTelegramPlugin
 
 
-class Backup(OpenCryptoPlugin):
+class Backup(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["backup"]
 
-    @OpenCryptoPlugin.only_owner
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.only_owner
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         bot = update.message.bot
         # List of folders to exclude from backup

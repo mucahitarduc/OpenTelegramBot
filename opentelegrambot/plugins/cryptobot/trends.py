@@ -8,18 +8,18 @@ from io import BytesIO
 from telegram import ParseMode
 from pytrends.request import TrendReq
 from opentelegrambot.ratelimit import RateLimit
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Trends(OpenCryptoPlugin):
+class Trends(OpenTelegramPlugin):
 
     DEFAULT_T = "today 5-y"
 
     def get_cmds(self):
         return ["tr", "trend"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

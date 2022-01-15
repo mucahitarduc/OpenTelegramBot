@@ -8,10 +8,10 @@ from datetime import datetime
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.cryptopanic import CryptoPanic
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class News(OpenCryptoPlugin):
+class News(OpenTelegramPlugin):
 
     _token = None
 
@@ -35,8 +35,8 @@ class News(OpenCryptoPlugin):
     def get_cmds(self):
         return ["n", "news"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

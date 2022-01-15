@@ -1,16 +1,16 @@
 import threading
 import opentelegrambot.emoji as emo
 
-from opentelegrambot.plugin import OpenCryptoPlugin
+from opentelegrambot.plugin import OpenTelegramPlugin
 
 
-class Shutdown(OpenCryptoPlugin):
+class Shutdown(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["shutdown"]
 
-    @OpenCryptoPlugin.only_owner
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.only_owner
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

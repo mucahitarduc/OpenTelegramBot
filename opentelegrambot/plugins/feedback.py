@@ -1,16 +1,16 @@
 from telegram import ParseMode
 import opentelegrambot.emoji as emo
 from opentelegrambot.config import ConfigManager as Cfg
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Feedback(OpenCryptoPlugin):
+class Feedback(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["feedback"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

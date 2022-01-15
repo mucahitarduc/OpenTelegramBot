@@ -4,12 +4,12 @@ import opentelegrambot.utils as utl
 
 from sqlite3 import IntegrityError
 from opentelegrambot.config import ConfigManager as Cfg
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 from telegram import ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackQueryHandler
 
 
-class Repeat(OpenCryptoPlugin):
+class Repeat(OpenTelegramPlugin):
 
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
@@ -23,8 +23,8 @@ class Repeat(OpenCryptoPlugin):
     def get_cmds(self):
         return ["re", "repeat", "timer"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot
@@ -196,7 +196,7 @@ class Repeat(OpenCryptoPlugin):
         return InlineKeyboardMarkup(menu, resize_keyboard=True)
 
     # Callback to delete repeater
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.send_typing
     def _callback(self, bot, update):
         query = update.callback_query
 

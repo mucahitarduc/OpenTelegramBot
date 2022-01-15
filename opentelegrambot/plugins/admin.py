@@ -2,13 +2,13 @@ import opentelegrambot.utils as utl
 import opentelegrambot.emoji as emo
 
 from collections import OrderedDict
-from opentelegrambot.plugin import OpenCryptoPlugin
+from opentelegrambot.plugin import OpenTelegramPlugin
 from opentelegrambot.config import ConfigManager as Cfg
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackQueryHandler
 
 
-class Admin(OpenCryptoPlugin):
+class Admin(OpenTelegramPlugin):
 
     def __init__(self, telegram_bot):
         super().__init__(telegram_bot)
@@ -21,8 +21,8 @@ class Admin(OpenCryptoPlugin):
     def get_cmds(self):
         return ["admin"]
 
-    @OpenCryptoPlugin.only_owner
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.only_owner
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

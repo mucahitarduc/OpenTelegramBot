@@ -3,16 +3,16 @@ import opentelegrambot.emoji as emo
 import opentelegrambot.constants as con
 
 from telegram import ParseMode
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Bpmn(OpenCryptoPlugin):
+class Bpmn(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["bpmn"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         if not args:

@@ -16,19 +16,19 @@ from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.apicache import APICache
 from opentelegrambot.api.coinpaprika import CoinPaprika
 from opentelegrambot.api.cryptocompare import CryptoCompare
-from opentelegrambot.plugin import OpenCryptoPlugin, Category, Keyword
+from opentelegrambot.plugin import OpenTelegramPlugin, Category, Keyword
 
 
 # TODO: Add source of data and time frame
-class Candlestick(OpenCryptoPlugin):
+class Candlestick(OpenTelegramPlugin):
 
     cmc_coin_id = None
 
     def get_cmds(self):
         return ["cs", "candle", "candlestick"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         keywords = utl.get_kw(args)
