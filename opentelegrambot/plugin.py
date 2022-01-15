@@ -45,7 +45,7 @@ class PluginInterface:
         return None
 
 
-class OpenCryptoPlugin(PluginInterface):
+class OpenTelegramPlugin(PluginInterface):
 
     def __init__(self, telegram_bot):
         super().__init__()

@@ -2,10 +2,10 @@ import os
 import opentelegrambot.constants as con
 
 from telegram import ParseMode
-from opentelegrambot.plugin import OpenCryptoPlugin
+from opentelegrambot.plugin import OpenTelegramPlugin
 
 
-class Start(OpenCryptoPlugin):
+class Start(OpenTelegramPlugin):
 
     START_FILENAME = "start.md"
 

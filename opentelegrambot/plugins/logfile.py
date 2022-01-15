@@ -2,16 +2,16 @@ import os
 import opentelegrambot.emoji as emo
 import opentelegrambot.constants as con
 
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Logfile(OpenCryptoPlugin):
+class Logfile(OpenTelegramPlugin):
 
     def get_cmds(self):
         return ["log"]
 
-    @OpenCryptoPlugin.only_owner
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.only_owner
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

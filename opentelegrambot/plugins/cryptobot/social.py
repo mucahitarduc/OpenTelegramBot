@@ -5,10 +5,10 @@ from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.apicache import APICache
 from opentelegrambot.api.coingecko import CoinGecko
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 
 
-class Social(OpenCryptoPlugin):
+class Social(OpenTelegramPlugin):
 
     TG_URL = "https://t.me/"
     TW_URL = "https://twitter.com/"
@@ -18,8 +18,8 @@ class Social(OpenCryptoPlugin):
     def get_cmds(self):
         return ["soc", "social"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot

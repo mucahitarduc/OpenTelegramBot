@@ -4,19 +4,19 @@ import opentelegrambot.utils as utl
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
 from opentelegrambot.api.coinmarketcap import CoinMarketCap
-from opentelegrambot.plugin import OpenCryptoPlugin, Category
+from opentelegrambot.plugin import OpenTelegramPlugin, Category
 import prettytable as pt
 
 
-class Worst(OpenCryptoPlugin):
+class Worst(OpenTelegramPlugin):
 
     DESC_LEN = 25
 
     def get_cmds(self):
         return ["worst"]
 
-    @OpenCryptoPlugin.save_data
-    @OpenCryptoPlugin.send_typing
+    @OpenTelegramPlugin.save_data
+    @OpenTelegramPlugin.send_typing
     def get_action(self, update, context):
         args = context.args
         bot = update.message.bot
