@@ -1,20 +1,23 @@
 import requests
-
+import json
 from bs4 import BeautifulSoup
 
 COIN_PAPRIKA_PARTIAL = "https://coinpaprika.com/coin/"
 CMC_URL_PARTIAL = "https://coinmarketcap.com/currencies/"
 ALL_CRYPTO_WP_PARTIAL = "https://www.allcryptowhitepapers.com/"
-
+WHITEPAPERIO = "https://api.whitepaper.io/lookup?code="
 
 def get_wp_allcryptowhitepaper(name):
     url = f"{ALL_CRYPTO_WP_PARTIAL}{name}-Whitepaper"
+    url = f"{WHITEPAPERIO}{name}"
     response = requests.get(url)
     response.raise_for_status()
 
     if response.status_code != 200:
         return None
-
+    res_json = json.loads(response.content.decode('utf-8'))
+    for a in res_json:
+        return a['documentEmbedUrl']
     soup = BeautifulSoup(response.content, "html.parser")
     for entry_content in soup.find_all(class_="entry-content"):
         for p in entry_content.find_all("p"):

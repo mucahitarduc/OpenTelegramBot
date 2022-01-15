@@ -3,9 +3,9 @@ import opentelegrambot.utils as utl
 
 from telegram import ParseMode
 from opentelegrambot.ratelimit import RateLimit
-from opentelegrambot.api.coindata import CoinData
+from opentelegrambot.api.coinmarketcap import CoinMarketCap
 from opentelegrambot.plugin import OpenCryptoPlugin, Category, Keyword
-
+import prettytable as pt
 
 class Best(OpenCryptoPlugin):
 
@@ -53,18 +53,18 @@ class Best(OpenCryptoPlugin):
         if RateLimit.limit_reached(update):
             return
 
-        period = CoinData.HOUR
+        period = CoinMarketCap.HOUR
         volume = None
         entries = 10
 
         if arg_list:
             # Period
             if arg_list[0].lower() == "hour":
-                period = CoinData.HOUR
+                period = CoinMarketCap.HOUR
             elif arg_list[0].lower() == "day":
-                period = CoinData.DAY
+                period = CoinMarketCap.DAY
             else:
-                period = CoinData.HOUR
+                period = CoinMarketCap.HOUR
 
             # Entries
             if len(arg_list) > 1 and arg_list[1].isnumeric():
@@ -75,8 +75,8 @@ class Best(OpenCryptoPlugin):
                 volume = int(arg_list[2])
 
         try:
-            best = CoinData().get_movers(
-                CoinData.BEST,
+            best = CoinMarketCap().get_movers(
+                CoinMarketCap.BEST,
                 period=period,
                 entries=entries,
                 volume=volume)
@@ -91,7 +91,10 @@ class Best(OpenCryptoPlugin):
             return
 
         msg = str()
-
+        table = pt.PrettyTable(['Name', 'Symbol', '% Change'])
+        table.align['Name'] = 'l'
+        table.align['Symbol'] = 'l'
+        table.align['% Change'] = 'r'
         for coin in best:
             name = coin["Name"]
             symbol = coin["Symbol"]
@@ -100,24 +103,24 @@ class Best(OpenCryptoPlugin):
             if len(desc) > self.DESC_LEN:
                 desc = f"{desc[:self.DESC_LEN-3]}..."
 
-            if period == CoinData.HOUR:
-                change = coin["Change_1h"]
+            if period == CoinMarketCap.HOUR:
+                change = coin["percent_change_1h"]
             else:
-                change = coin["Change_24h"]
+                change = coin["percent_change_24h"]
 
             change = utl.format(change, decimals=2, force_length=True)
-            change = "{1:>{0}}".format(self.DESC_LEN + 9 - len(desc), change)
-            msg += f"`{desc}{change}%`\n"
-
+            #change = "{1:>{0}}".format(self.DESC_LEN + 9 - len(desc), change)
+            table.add_row([f"{name}", f"{symbol}", f"{change}"])
+        msg = f'<pre>{table}</pre>'
         vol = str()
         if volume:
             vol = f" (vol > {utl.format(volume)})"
 
-        msg = f"`Best movers 1{period.lower()[:1]}{vol}\n\n`{msg}"
+        msg = f"Best movers 1{period.lower()[:1]}{vol}\n\n{msg}"
 
         if keywords.get(Keyword.INLINE):
             return msg
-
+        keywords[Keyword.PARSE] = ParseMode.HTML
         self.send_msg(msg, update, keywords)
 
     def get_usage(self):

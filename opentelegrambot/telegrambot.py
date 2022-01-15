@@ -112,14 +112,26 @@ class TelegramBot:
     def _load_plugins(self):
         threads = list()
 
-        for _, _, files in os.walk(os.path.join(con.SRC_DIR, con.PLG_DIR)):
-            for file in files:
-                if not file.lower().endswith(".py"):
+        _, folders, files = next(os.walk(os.path.join(con.SRC_DIR, con.PLG_DIR)))
+        for folder in folders:
+            if folder.startswith("_"):
+                continue
+            _, _, plugins = next(os.walk(os.path.join(con.SRC_DIR, con.PLG_DIR, folder)))
+            for plugin in plugins:
+                if not plugin.lower().endswith(".py"):
                     continue
-                if file.startswith("_"):
+                if plugin.startswith("_"):
                     continue
+                threads.append(self._load_plugin(f"{con.SRC_DIR}.{con.PLG_DIR}.{folder}", plugin))
+                
+                
+        for file in files:
+            if not file.lower().endswith(".py"):
+                continue
+            if file.startswith("_"):
+                continue
 
-                threads.append(self._load_plugin(file))
+            threads.append(self._load_plugin(f"{con.SRC_DIR}.{con.PLG_DIR}", file))
 
         # Make sure that all plugins are loaded
         for thread in threads:
@@ -129,10 +141,10 @@ class TelegramBot:
             plugin.after_plugins_loaded()
 
     @threaded
-    def _load_plugin(self, file):
+    def _load_plugin(self, path, file):
         try:
             module_name = file[:-3]
-            module_path = f"{con.SRC_DIR}.{con.PLG_DIR}.{module_name}"
+            module_path = f"{path}.{module_name}"
             module = importlib.import_module(module_path)
 
             plugin_class = getattr(module, module_name.capitalize())

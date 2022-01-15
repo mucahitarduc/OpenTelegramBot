@@ -75,7 +75,7 @@ class Whitepaper(OpenCryptoPlugin):
         if coin_info["Message"] != "Success":
             return None
 
-        self.name = coin_info["Data"][0]["CoinInfo"]["FullName"].replace(" ", "-")
+        self.name = coin_info["Data"][0]["CoinInfo"]["Name"].replace(" ", "-")
         return webs.get_wp_allcryptowhitepaper(self.name)
 
     def _from_coinmarketcap(self, coin):
