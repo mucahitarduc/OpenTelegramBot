@@ -17,6 +17,7 @@ beautifulsoup4 = "*"
 pytrends = "*"
 html2text = "*"
 python-twitter = "*"
+kaleido = "*"
 
 [requires]
 python_version = "3.8"
